@@ -1,0 +1,65 @@
+<section>
+  <h2>Audio & Video Library</h2>
+  <form class="filters" method="get">
+    <input type="text" name="q" placeholder="Search by title or name" value="<%= q %>" />
+    <select name="category">
+      <option <%= category==='All'?'selected':'' %>>All</option>
+      <option <%= category==='Quran'?'selected':'' %>>Quran</option>
+      <option <%= category==='Nasheed'?'selected':'' %>>Nasheeds</option>
+      <option <%= category==='Talk'?'selected':'' %>>Talks</option>
+      <option <%= category==='Podcast Episode'?'selected':'' %>>Podcast Episodes</option>
+    </select>
+    <select name="type">
+      <option <%= type==='All'?'selected':'' %>>All</option>
+      <option <%= type==='audio'?'selected':'' %> value="audio">Audio</option>
+      <option <%= type==='video'?'selected':'' %> value="video">Video</option>
+      <option <%= type==='youtube'?'selected':'' %> value="youtube">Videos</option>
+    </select>
+    <select name="sort">
+      <option <%= sort==='latest'?'selected':'' %> value="latest">Latest</option>
+      <option <%= sort==='oldest'?'selected':'' %> value="oldest">Oldest</option>
+      <option <%= sort==='most'?'selected':'' %> value="most">Most Played</option>
+    </select>
+    <button class="btn">Apply</button>
+  </form>
+  <div class="grid">
+    <% items.forEach(item => { %>
+      <div class="card item">
+        <div class="meta">
+          <div class="title"><%= item.title %></div>
+          <div class="sub"><%= item.category %> • <%= item.name %> • <%= new Date(item.created_at).toLocaleDateString() %></div>
+          <p class="desc"><%= item.description %></p>
+        </div>
+        <% if (item.type === 'youtube') { %>
+          <a class="btn" href="<%= item.file_url %>" target="_blank">Play</a>
+        <% } else if (item.type === 'video') { %>
+          <video controls src="<%= item.file_url %>" class="media"></video>
+        <% } else { %>
+          <audio controls src="<%= item.file_url %>" class="media"></audio>
+        <% } %>
+      </div>
+    <% }) %>
+  </div>
+</section>
+<section id="upload">
+  <h3>Upload Audio / Video</h3>
+  <form class="form" action="/api/upload" method="post" enctype="multipart/form-data">
+    <div class="grid2">
+      <div><label>Full Name*</label><input name="fullName" required /></div>
+      <div><label>Email</label><input name="email" type="email" /></div>
+      <div><label>Title*</label><input name="title" required /></div>
+      <div><label>Category*</label>
+        <select name="category" required>
+          <option>Quran</option><option>Nasheed</option><option>Talk</option><option>Podcast Episode</option><option>Other</option>
+        </select>
+      </div>
+      <div class="full"><label>Description</label><textarea name="description"></textarea></div>
+      <div class="full"><label>File*</label><input name="media" type="file" accept="audio/*,video/*" required /></div>
+    </div>
+    <button class="btn primary">Submit Upload</button>
+  </form>
+</section>
+<section>
+  <h3>YouTube Integration</h3>
+  <p>Admins can add YouTube videos from the dashboard.</p>
+</section>

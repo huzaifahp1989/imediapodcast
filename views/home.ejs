@@ -1,0 +1,42 @@
+<section class="hero">
+  <h1>Islam Media Podcast Studio</h1>
+  <p>Record, Upload and Share Your Quran, Nasheeds and Talks – Directly from Your Browser.</p>
+  <div class="hero-actions">
+    <a class="btn primary" href="/record">Start Recording</a>
+    <a class="btn" href="/library#upload">Upload Audio / Video</a>
+  </div>
+</section>
+<section class="features">
+  <div class="card">
+    <h3>Record from your browser</h3>
+    <p>Use the Recording Studio to capture high-quality audio.</p>
+  </div>
+  <div class="card">
+    <h3>Upload your own content</h3>
+    <p>Share audio or video files in common formats.</p>
+  </div>
+  <div class="card">
+    <h3>Request Quran, Nasheeds & Talks</h3>
+    <p>Submit topics or recitations for the community.</p>
+  </div>
+</section>
+<section>
+  <h2>Latest Published</h2>
+  <div class="grid">
+    <% latest.forEach(item => { %>
+      <div class="card item">
+        <div class="meta">
+          <div class="title"><%= item.title %></div>
+          <div class="sub"><%= item.category %> • <%= item.name %> • <%= new Date(item.created_at).toLocaleDateString() %></div>
+        </div>
+        <% if (item.type === 'youtube') { %>
+          <a class="btn" href="<%= item.file_url %>" target="_blank">Play</a>
+        <% } else if (item.type === 'video') { %>
+          <video controls src="<%= item.file_url %>" class="media"></video>
+        <% } else { %>
+          <audio controls src="<%= item.file_url %>" class="media"></audio>
+        <% } %>
+      </div>
+    <% }) %>
+  </div>
+</section>

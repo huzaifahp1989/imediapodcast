@@ -1,0 +1,54 @@
+<section>
+  <h2>Recording Studio</h2>
+  <div id="recorder" class="studio">
+    <div class="controls">
+      <button id="startBtn" class="btn primary">Start Recording</button>
+      <button id="pauseBtn" class="btn" disabled>Pause</button>
+      <button id="resumeBtn" class="btn" disabled>Resume</button>
+      <button id="stopBtn" class="btn danger" disabled>Stop</button>
+      <span id="timer">00:00</span>
+    </div>
+    <div class="level"><div id="levelBar"></div></div>
+    <div id="playback" class="playback hidden">
+      <audio id="player" controls></audio>
+      <div class="trim">
+        <label>Trim start</label>
+        <input type="range" id="trimStart" min="0" max="100" value="0" />
+        <label>Trim end</label>
+        <input type="range" id="trimEnd" min="0" max="100" value="100" />
+      </div>
+      <div class="actions">
+        <button id="reRecordBtn" class="btn">Re-record</button>
+        <button id="confirmBtn" class="btn primary">Confirm & Submit</button>
+      </div>
+    </div>
+  </div>
+  <form id="recForm" class="form">
+    <input type="hidden" name="source" value="record" />
+    <div class="grid2">
+      <div>
+        <label>Full Name*</label>
+        <input name="fullName" required />
+      </div>
+      <div>
+        <label>Email</label>
+        <input name="email" type="email" />
+      </div>
+      <div>
+        <label>Title of Recording*</label>
+        <input name="title" required />
+      </div>
+      <div>
+        <label>Category*</label>
+        <select name="category" required>
+          <option>Quran</option><option>Nasheed</option><option>Talk</option><option>Podcast Episode</option><option>Other</option>
+        </select>
+      </div>
+      <div class="full">
+        <label>Description / Notes</label>
+        <textarea name="description"></textarea>
+      </div>
+    </div>
+  </form>
+</section>
+<script src="/js/recording.js"></script>

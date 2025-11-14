@@ -1,0 +1,45 @@
+<section>
+  <h2>Recordings Management</h2>
+  <table class="table">
+    <thead><tr><th>Title</th><th>Name</th><th>Category</th><th>Date</th><th>Status</th><th>Play</th><th>Actions</th></tr></thead>
+    <tbody>
+      <% list.forEach(r => { %>
+        <tr>
+          <td><%= r.title %></td>
+          <td><%= r.name %></td>
+          <td><%= r.category %></td>
+          <td><%= new Date(r.created_at).toLocaleString() %></td>
+          <td><%= r.status %></td>
+          <td>
+            <% if (r.type==='youtube') { %>
+              <a href="<%= r.file_url %>" target="_blank">Open</a>
+            <% } else if (r.type==='video') { %>
+              <video src="<%= r.file_url %>" controls width="160"></video>
+            <% } else { %>
+              <audio src="<%= r.file_url %>" controls></audio>
+            <% } %>
+          </td>
+          <td>
+            <form method="post" action="/admin/recordings/<%= r.id %>/status" style="display:inline">
+              <select name="status">
+                <option <%= r.status==='Pending'?'selected':'' %>>Pending</option>
+                <option <%= r.status==='Approved'?'selected':'' %>>Approved</option>
+                <option <%= r.status==='Rejected'?'selected':'' %>>Rejected</option>
+              </select>
+              <button class="btn">Save</button>
+            </form>
+            <form method="post" action="/admin/recordings/<%= r.id %>/edit" style="display:inline">
+              <input name="title" value="<%= r.title %>" />
+              <input name="category" value="<%= r.category %>" />
+              <input name="description" value="<%= r.description %>" />
+              <button class="btn">Edit</button>
+            </form>
+            <form method="post" action="/admin/recordings/<%= r.id %>/delete" style="display:inline">
+              <button class="btn danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</section>

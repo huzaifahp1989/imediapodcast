@@ -1,0 +1,35 @@
+<section>
+  <h2>Best Quran, Nasheeds & Talks</h2>
+  <div class="grid">
+    <% featured.forEach(item => { %>
+      <div class="card item">
+        <div class="title"><%= item.title %></div>
+        <div class="sub"><%= item.category %> • <%= item.name %></div>
+        <% if (item.type === 'youtube') { %>
+          <a class="btn" href="<%= item.file_url %>" target="_blank">Play</a>
+        <% } else if (item.type === 'video') { %>
+          <video controls src="<%= item.file_url %>" class="media"></video>
+        <% } else { %>
+          <audio controls src="<%= item.file_url %>" class="media"></audio>
+        <% } %>
+      </div>
+    <% }) %>
+  </div>
+</section>
+<section>
+  <h2>Request a Recording or Topic</h2>
+  <form class="form" action="/api/requests" method="post" enctype="multipart/form-data">
+    <div class="grid2">
+      <div><label>Name*</label><input name="name" required /></div>
+      <div><label>Email</label><input name="email" type="email" /></div>
+      <div><label>Request type*</label>
+        <select name="requestType" required>
+          <option>Quran Recitation</option><option>Nasheed</option><option>Talk</option><option>Podcast Topic</option><option>Other</option>
+        </select>
+      </div>
+      <div class="full"><label>Details of your request</label><textarea name="message" required></textarea></div>
+      <div class="full"><label>Upload reference file</label><input type="file" name="file" accept="audio/*,video/*" /></div>
+    </div>
+    <button class="btn primary">Submit Request</button>
+  </form>
+</section>

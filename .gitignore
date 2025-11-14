@@ -1,0 +1,7 @@
+node_modules/
+data/
+public/uploads/
+.env
+tmp.html
+*.log
+/*.zip

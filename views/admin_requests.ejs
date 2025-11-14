@@ -1,0 +1,30 @@
+<section>
+  <h2>Requests</h2>
+  <table class="table">
+    <thead><tr><th>Name</th><th>Email</th><th>Type</th><th>Message</th><th>Date</th><th>Status</th><th>File</th><th>Action</th></tr></thead>
+    <tbody>
+      <% list.forEach(r => { %>
+        <tr>
+          <td><%= r.name %></td>
+          <td><%= r.email %></td>
+          <td><%= r.request_type %></td>
+          <td><%= r.message %></td>
+          <td><%= new Date(r.created_at).toLocaleString() %></td>
+          <td><%= r.status %></td>
+          <td><% if (r.file_url) { %><a href="<%= r.file_url %>" target="_blank">Open</a><% } %></td>
+          <td>
+            <form method="post" action="/admin/requests/<%= r.id %>/status">
+              <select name="status">
+                <option <%= r.status==='New'?'selected':'' %>>New</option>
+                <option <%= r.status==='In Progress'?'selected':'' %>>In Progress</option>
+                <option <%= r.status==='Completed'?'selected':'' %>>Completed</option>
+                <option <%= r.status==='Closed'?'selected':'' %>>Closed</option>
+              </select>
+              <button class="btn">Save</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</section>

@@ -1,0 +1,41 @@
+<section>
+  <h2>Featured Controls</h2>
+  <div class="grid2">
+    <div>
+      <h3>Home Page</h3>
+      <ul>
+        <% home.forEach(i => { %>
+          <li><%= i.title %> • <%= i.category %></li>
+        <% }) %>
+      </ul>
+      <form method="post" action="/admin/featured">
+        <input type="hidden" name="location" value="home" />
+        <label>Add item</label>
+        <select name="itemId">
+          <% all.forEach(a => { %>
+            <option value="<%= a.id %>"><%= a.title %> • <%= a.category %></option>
+          <% }) %>
+        </select>
+        <button class="btn">Add</button>
+      </form>
+    </div>
+    <div>
+      <h3>Requests Page</h3>
+      <ul>
+        <% requests.forEach(i => { %>
+          <li><%= i.title %> • <%= i.category %></li>
+        <% }) %>
+      </ul>
+      <form method="post" action="/admin/featured">
+        <input type="hidden" name="location" value="requests" />
+        <label>Add item</label>
+        <select name="itemId">
+          <% all.forEach(a => { %>
+            <option value="<%= a.id %>"><%= a.title %> • <%= a.category %></option>
+          <% }) %>
+        </select>
+        <button class="btn">Add</button>
+      </form>
+    </div>
+  </div>
+</section>

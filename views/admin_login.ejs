@@ -1,0 +1,11 @@
+<section>
+  <h2>Admin Login</h2>
+  <% if (typeof error !== 'undefined') { %><div class="alert"><%= error %></div><% } %>
+  <form class="form" method="post" action="/admin/login">
+    <div class="grid2">
+      <div><label>Username</label><input name="username" required /></div>
+      <div><label>Password</label><input type="password" name="password" required /></div>
+    </div>
+    <button class="btn primary">Login</button>
+  </form>
+</section>

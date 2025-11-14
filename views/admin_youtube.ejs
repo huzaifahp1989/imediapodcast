@@ -1,0 +1,26 @@
+<section>
+  <h2>YouTube Entries</h2>
+  <% if (typeof error !== 'undefined') { %><div class="alert"><%= error %></div><% } %>
+  <form class="form" method="post" action="/admin/youtube">
+    <div class="grid2">
+      <div class="full"><label>YouTube URL</label><input name="url" required /></div>
+      <div><label>Title</label><input name="title" /></div>
+      <div><label>Category</label>
+        <select name="category">
+          <option>Podcast Episode</option><option>Quran</option><option>Nasheed</option><option>Talk</option><option>Other</option>
+        </select>
+      </div>
+      <div class="full"><label>Description</label><textarea name="description"></textarea></div>
+    </div>
+    <button class="btn primary">Add YouTube</button>
+  </form>
+  <div class="grid">
+    <% items.forEach(i => { %>
+      <div class="card item">
+        <div class="title"><%= i.title %></div>
+        <div class="sub"><%= i.category %></div>
+        <a class="btn" href="<%= i.file_url %>" target="_blank">Open</a>
+      </div>
+    <% }) %>
+  </div>
+</section>
