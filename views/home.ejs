@@ -6,6 +6,23 @@
     <a class="btn" href="/library#upload">Upload Audio / Video</a>
   </div>
 </section>
+<% if (typeof streams !== 'undefined' && streams && streams.length) { %>
+<section>
+  <h2>Live Now</h2>
+  <div class="grid">
+    <% streams.slice(0,2).forEach(s => { %>
+      <div class="card item">
+        <div class="meta">
+          <div class="title"><%= s.title %></div>
+          <div class="sub"><%= s.kind %> • <%= new Date(s.created_at).toLocaleDateString() %></div>
+        </div>
+        <a class="btn" href="/live">Watch Live</a>
+      </div>
+    <% }) %>
+  </div>
+  <div style="margin-top:8px"><a class="btn" href="/live">See all live streams</a></div>
+</section>
+<% } %>
 <section class="features">
   <div class="card">
     <h3>Record from your browser</h3>

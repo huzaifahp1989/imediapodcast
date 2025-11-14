@@ -1,0 +1,47 @@
+<section>
+  <h2>External Streams</h2>
+  <form class="form" method="post" action="/admin/streams">
+    <div class="grid2">
+      <div><label>Title</label><input name="title" required /></div>
+      <div><label>Kind</label>
+        <select name="kind"><option>audio</option><option>video</option><option>youtube</option></select>
+      </div>
+      <div class="full"><label>Stream URL</label><input name="url" required placeholder="https://..." /></div>
+      <div><label>Status</label>
+        <select name="status"><option>Active</option><option>Inactive</option></select>
+      </div>
+    </div>
+    <button class="btn primary">Add Stream</button>
+  </form>
+  <table class="table" style="margin-top:16px;">
+    <thead><tr><th>Title</th><th>Kind</th><th>URL</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody>
+      <% list.forEach(s => { %>
+        <tr>
+          <td><%= s.title %></td>
+          <td><%= s.kind %></td>
+          <td><a href="<%= s.url %>" target="_blank">Open</a></td>
+          <td><%= s.status %></td>
+          <td>
+            <form method="post" action="/admin/streams/<%= s.id %>/status" style="display:inline">
+              <select name="status">
+                <option <%= s.status==='Active'?'selected':'' %>>Active</option>
+                <option <%= s.status==='Inactive'?'selected':'' %>>Inactive</option>
+              </select>
+              <button class="btn">Save</button>
+            </form>
+            <form method="post" action="/admin/streams/<%= s.id %>/edit" style="display:inline">
+              <input name="title" value="<%= s.title %>" />
+              <input name="url" value="<%= s.url %>" />
+              <select name="kind"><option <%= s.kind==='audio'?'selected':'' %>>audio</option><option <%= s.kind==='video'?'selected':'' %>>video</option><option <%= s.kind==='youtube'?'selected':'' %>>youtube</option></select>
+              <button class="btn">Edit</button>
+            </form>
+            <form method="post" action="/admin/streams/<%= s.id %>/delete" style="display:inline">
+              <button class="btn danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</section>
