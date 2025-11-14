@@ -2,9 +2,10 @@ const path = require('path');
 const Database = require('better-sqlite3');
 const fs = require('fs');
 
-const dbDir = path.join(__dirname, '..', 'data');
+const baseDir = process.env.VERCEL ? '/tmp' : path.join(__dirname, '..');
+const dbDir = path.join(baseDir, 'data');
 const dbPath = path.join(dbDir, 'app.db');
-if (!fs.existsSync(dbDir)) fs.mkdirSync(dbDir);
+if (!fs.existsSync(dbDir)) fs.mkdirSync(dbDir, { recursive: true });
 const db = new Database(dbPath);
 
 db.exec(`

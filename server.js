@@ -31,10 +31,11 @@ app.use(expressLayouts);
 app.set('layout', 'layout');
 
 const publicDir = path.join(__dirname, 'public');
-if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir);
-const uploadsDir = path.join(publicDir, 'uploads');
-if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir);
+if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir, { recursive: true });
+const uploadsDir = process.env.VERCEL ? path.join('/tmp', 'uploads') : path.join(publicDir, 'uploads');
+if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
 app.use(express.static(publicDir));
+app.use('/uploads', express.static(uploadsDir));
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) { cb(null, uploadsDir); },
@@ -261,4 +262,8 @@ app.post('/admin/featured', requireAdmin, (req, res) => {
   res.redirect('/admin/featured');
 });
 
-app.listen(PORT, () => {});
+if (process.env.VERCEL) {
+  module.exports = app;
+} else {
+  app.listen(PORT, () => {});
+}
